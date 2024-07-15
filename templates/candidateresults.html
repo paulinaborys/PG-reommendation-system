@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System Rekomendacyjny</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>System rekomendacyjny dla kandydatów na studia na Politechnice Gdańskiej</h1>
+    <h2>Witaj {{ name }}!</h2>
+    <h3>Twoje punkty rekrutacyjne: {{ points_enrolment }}</h3>
+    
+  </header>
+  <section id="description">
+    <h3>Zapraszamy do skorzystania z naszego systemu rekomendacyjnego, który pomoże Ci w wyborze odpowiedniego kierunku studiów na Politechnice Gdańskiej. <br> <br></h3>
+    <h3>Nasz system analizuje Twoje preferencje oraz wynik punktów rekrutacyjnych, aby zaproponować Ci najlepiej dopasowane kierunki studiów. Dzięki temu zyskasz pewność, że podejmujesz trafną decyzję dotyczącą Twojej przyszłej ścieżki edukacyjnej. <br> </h3>
+  </section>
+
+  <section id="how-it-works" class="container">
+    <h3>Jak to działa: <br><br> </h3>
+    <ol>
+      <li><strong>Współczynnik Sukcesu:</strong> Ten wskaźnik informuje Cię o prawdopodobieństwie osiągnięcia sukcesu w wybranym kursie. Sukces jest definiowany jako uzyskanie dyplomu z danego kursu po zakończeniu 7 semestrów. Współczynnik sukcesu jest wyznaczany na podstawie analizy historycznych danych i jest używany do prognozowania Twoich szans na zakończenie studiów na danym kierunku.<br> <br></li>
+      <li><strong>Szacowana Średnia Ocen:</strong> To jest przybliżona wartość średniej ocen, jaką uzyskałbyś na zakończenie studiów na wybranym kierunku. Ten wskaźnik daje Ci wyobrażenie o oczekiwanej wydajności akademickiej na danym kursie.<br><br></li>
+      <li><strong>Punkty Rekrutacyjne:</strong> Twoje punkty rekrutacyjne to kluczowy parametr, który wpływa na Twoje przyjęcie na dany kierunek. Nasz system bierze pod uwagę te punkty, aby dopasować Cię do odpowiednich kierunków studiów.<br><br></li>
+      <li><strong>Znormalizowane Punkty Rekrutacyjne:</strong> Te punkty są przeliczane na skalę procentową, co pomaga porównać Twoje wyniki z innymi kandydatami. Przy normalizowaniu punktów bierzemy pod uwagę poprzednie edycje rekrutacji, w których obowiązywały różne zasady przyznawania punktów rekrutacyjnych. To pozwala zobaczyć, gdzie stoisz w kontekście rekrutacji na różne kierunki.<br><br></li>
+      <li><strong>Najwyższy Współczynnik Sukcesu i Średnia:</strong> Nasz system identyfikuje kierunki, na których osiągnąłbyś najwyższy współczynnik sukcesu oraz najwyższą średnią ocen. To pomoże Ci zidentyfikować te kursy, na których masz największe szanse na osiągnięcie sukcesu oraz uzyskanie wysokiej średniej ocen.<br><br></li>
+    </ol>
+  </section>
+  <hr>
+  <section id="summary">
+    <h4>Nasza rekomendacja: <br><br> </h4>
+    <p><strong>Punkty rekrutacyjne:</strong> {{ points_enrolment }}</p>
+    <p><strong>Znormalizowane Punkty Rekrutacyjne: </strong>{{ points }} <br></p>
+    <p><strong>Twój Najwyższy Współczynnik Sukcesu jest na kursie:</strong> {{ courses[success_rate_winner_index] }}</p>
+    <p><strong>Najwyższy Współczynnik Sukcesu na kursie {{ courses[success_rate_winner_index] }} wynosi:</strong> {{ success_rate_list[success_rate_winner_index] }}</p>
+    <p><strong>Twoja Najwyższa Szacowana Średnia Ocen jest na kursie:</strong> {{ courses[avg_rate_winner_index] }}</p>
+    <p><strong>Najwyższa Szacowana Średnia Ocen na kursie {{ courses[avg_rate_winner_index] }} wynosi:</strong> {{ avg_rate_list[avg_rate_winner_index] }} </p>
+  </section>
+
+  <section id="summary2">
+    <h3>Poniżej znjadują się dokładne analizy wraz z wizualizacją wyników na wykresach.<br><br> </h3>
+    <h5>Na słupkach wykresu "Współczynnik Sukcesu" można odczytać liczbę wszystkich kandydatów na studia w każdym z przedziałów punktowych.</h5>
+  </section>
+   
+  <section id="charts">
+  {% block content %}
+  <div class="charts-container">
+      {% for idx in range(graphJSON_success|length) %}
+      <hr>
+      <p>Rekrutacja na kurs: <strong>{{ courses[idx] }}</strong></p>
+      <p>Informacja: {{ messages[idx] }}</p>
+      <p>Twój Współczynnik Sukcesu wynosi: {{ success_rate_list[idx] }}</p>
+      <p>Szacowana Średnia Ocen wynosi: {{ avg_rate_list[idx] }}</p>
+      {% if graphJSON_success[idx] %}
+      <div class="chart-success">
+          <div id="chart-success-{{ idx }}"></div>
+      </div>
+      {% endif %}
+      {% if graphJSON_avg[idx] %}
+      <div class="chart-avg">
+        <div id="chart-avg-{{ idx }}"></div>
+      </div>
+      {% endif %}
+      {% endfor %}
+  </div>
+  {% endblock %}
+</section>
+
+<footer>
+  <p>&copy; {{ current_year }} System Rekomendacyjny Politechniki Gdańskiej</p>
+  <p>Autor: Paulina Borys</p>
+</footer>
+
+{% block scripts %}
+  <script>
+      // Render success charts
+      {% for idx in range(graphJSON_success|length) %}
+      {% if graphJSON_avg[idx] %}
+      var graphSuccess{{ idx }} = {{ graphJSON_success[idx] | safe }};
+      Plotly.newPlot('chart-success-{{ idx }}', graphSuccess{{ idx }});
+      {% endif %}
+      {% endfor %}
+
+      // Render avg charts
+      {% for idx in range(graphJSON_avg|length) %}
+      {% if graphJSON_avg[idx] %}
+      var graphAvg{{ idx }} = {{ graphJSON_avg[idx] | safe }};
+      Plotly.newPlot('chart-avg-{{ idx }}', graphAvg{{ idx }});
+      {% endif %}
+      {% endfor %}
+  </script>
+{% endblock %}
+</body>
+</html>

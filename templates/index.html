@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System rekomendacyjny</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <h1>System rekomendacyjny dla kandydatów na studia na Politechnice Gdańskiej</h1>
+  </header>
+
+    <section id="description">
+      <h2>Witaj przyszły studencie!<br><br></h2>
+      <h3>Zapraszamy do skorzystania z naszego systemu rekomendacyjnego, który pomoże Ci w wyborze odpowiedniego kierunku studiów na Politechnice Gdańskiej. <br></h3>
+      <h3>Nasz system analizuje Twoje preferencje oraz wynik punktów rekrutacyjnych, aby zaproponować Ci najlepiej dopasowane kierunki studiów. Dzięki temu zyskasz pewność, że podejmujesz trafną decyzję dotyczącą Twojej przyszłej ścieżki edukacyjnej. <br> </h3>
+    </section>
+    
+    <section id="how-it-works" class="container">
+      <h3>Jak to działa: <br><br> </h3>
+      <ol>
+        <li><strong>Współczynnik Sukcesu:</strong> Ten wskaźnik informuje Cię o szansie osiągnięcia sukcesu w wybranym kursie. Sukces jest definiowany jako uzyskanie dyplomu z danego kursu po zakończeniu 7 semestrów. Współczynnik sukcesu jest wyznaczany na podstawie analizy historycznych danych i jest używany do prognozowania Twoich szans na zakończenie studiów na danym kierunku o zadanym terminie.<br> <br></li>
+        <li><strong>Szacowana Średnia Ocen:</strong> To jest przybliżona wartość średniej ocen, jaką uzyskałbyś na zakończenie studiów na wybranym kierunku. Ten wskaźnik daje Ci wyobrażenie o oczekiwanej średniej ocen na danym kursie.<br><br></li>
+        <li><strong>Punkty Rekrutacyjne:</strong> Twoje punkty rekrutacyjne to kluczowy parametr, który wpływa na Twoje przyjęcie na dany kierunek. Nasz system bierze pod uwagę te punkty, aby dopasować Cię do odpowiednich kierunków studiów.<br><br></li>
+        <li><strong>Znormalizowane Punkty Rekrutacyjne:</strong> Te punkty są przeliczane na skalę procentową, co pomaga porównać Twoje wyniki z innymi kandydatami. Przy normalizowaniu punktów bierzemy pod uwagę poprzednie edycje rekrutacji, w których obowiązywały różne zasady przyznawania punktów rekrutacyjnych. To pozwala zobaczyć, gdzie stoisz w kontekście rekrutacji na różne kierunki.<br><br></li>
+        <li><strong>Najwyższy Współczynnik Sukcesu i Średnia:</strong> Nasz system identyfikuje kierunki, na których osiągnąłbyś najwyższy współczynnik sukcesu oraz najwyższą średnią ocen. To pomoże Ci zidentyfikować te kursy, na których masz największe szanse na osiągnięcie sukcesu oraz uzyskanie wysokiej średniej ocen.<br><br></li>
+      </ol>
+    </section>
+
+    <section id="summary">
+      <p><strong>Aby rozpocząć rekomendację proszę wypełnij formularz, który znajduje się poniżej.</strong></p>
+      <p><strong>Możesz wybrać 5 preferencji kierunków studiów.</strong></p>
+    </section>
+  
+  <section id="form">
+    <form action="{{ url_for('candidate_recommendation')}}" method="post" name="candidate_data">
+      <label for="imie">Imię:</label>
+      <input type="text" id="imie" name="imie"><br><br>
+
+      <label for="wybor1">Kierunek - wybór 1:</label>
+      <select id="wybor1" name="wybor1">
+        
+        <option value="Wybierz">Wybierz</option>
+        <option value="Analityka gospodarcza">Analityka gospodarcza</option>
+        <option value="Architektura">Architektura</option>
+        <option value="Automatyka, robotyka i systemy sterowania">Automatyka, robotyka i systemy sterowania</option>
+        <option value="Automatyka, cybernetyka i robotyka">Automatyka, cybernetyka i robotyka</option>
+        <option value="Biotechnologia">Biotechnologia</option>
+        <option value="Budownictwo">Budownictwo</option>
+        <option value="Budowa maszyn i okrętów">Budowa maszyn i okrętów</option>
+        <option value="Chemia">Chemia</option>
+        <option value="Chemia budowlana">Chemia budowlana</option>
+        <option value="Ekonomia">Ekonomia</option>
+        <option value="Elektronika i telekomunikacja">Elektronika i telekomunikacja</option>
+        <option value="Elektrotechnika">Elektrotechnika</option>
+        <option value="Energetyka">Energetyka</option>
+        <option value="Fizyka techniczna">Fizyka techniczna</option>
+        <option value="Geodezja i kartografia">Geodezja i kartografia</option>
+        <option value="Gospodarka przestrzenna">Gospodarka przestrzenna</option>
+        <option value="Informatyka">Informatyka</option>
+        <option value="Inżynieria biomedyczna">Inżynieria biomedyczna</option>
+        <option value="Inżynieria danych">Inżynieria danych</option>
+        <option value="Inżynieria materiałowa">Inżynieria materiałowa</option>
+        <option value="Inżynieria mechaniczno-medyczna">Inżynieria mechaniczno-medyczna</option>
+        <option value="Inżynieria odzysku surowców i energii">Inżynieria odzysku surowców i energii</option>
+        <option value="Inżynieria środowiska">Inżynieria środowiska</option>
+        <option value="Matematyka">Matematyka</option>
+        <option value="Mechanika i budowa maszyn">Mechanika i budowa maszyn</option>
+        <option value="Mechatronika">Mechatronika</option>
+        <option value="Nanotechnologia">Nanotechnologia</option>
+        <option value="Okręty i konstrukcje morskie">Okręty i konstrukcje morskie</option>
+        <option value="Projektowanie i budowa jachtów">Projektowanie i budowa jachtów</option>
+        <option value="Technologia chemiczna">Technologia chemiczna</option>
+        <option value="Technologie wodorowe i elektromobilność">Technologie wodorowe i elektromobilność</option>
+        <option value="Transport">Transport</option>
+        <option value="Transport i logistyka">Transport i logistyka</option>
+        <option value="Zarządzanie">Zarządzanie</option>
+        <option value="Zarządzanie i inżynieria produkcji">Zarządzanie i inżynieria produkcji</option>
+        <option value="Zarządzanie inżynierskie">Zarządzanie inżynierskie</option>
+        <option value="Zielone technologie">Zielone technologie</option>
+      </select><br><br>
+
+      <label for="wybor2">Kierunek - wybór 2:</label>
+      <select id="wybor2" name="wybor2">
+        
+        <option value="Wybierz">Wybierz</option>
+        <option value="Analityka gospodarcza">Analityka gospodarcza</option>
+        <option value="Architektura">Architektura</option>
+        <option value="Automatyka, robotyka i systemy sterowania">Automatyka, robotyka i systemy sterowania</option>
+        <option value="Automatyka, cybernetyka i robotyka">Automatyka, cybernetyka i robotyka</option>
+        <option value="Biotechnologia">Biotechnologia</option>
+        <option value="Budownictwo">Budownictwo</option>
+        <option value="Budowa maszyn i okrętów">Budowa maszyn i okrętów</option>
+        <option value="Chemia">Chemia</option>
+        <option value="Chemia budowlana">Chemia budowlana</option>
+        <option value="Ekonomia">Ekonomia</option>
+        <option value="Elektronika i telekomunikacja">Elektronika i telekomunikacja</option>
+        <option value="Elektrotechnika">Elektrotechnika</option>
+        <option value="Energetyka">Energetyka</option>
+        <option value="Fizyka techniczna">Fizyka techniczna</option>
+        <option value="Geodezja i kartografia">Geodezja i kartografia</option>
+        <option value="Gospodarka przestrzenna">Gospodarka przestrzenna</option>
+        <option value="Informatyka">Informatyka</option>
+        <option value="Inżynieria biomedyczna">Inżynieria biomedyczna</option>
+        <option value="Inżynieria danych">Inżynieria danych</option>
+        <option value="Inżynieria materiałowa">Inżynieria materiałowa</option>
+        <option value="Inżynieria mechaniczno-medyczna">Inżynieria mechaniczno-medyczna</option>
+        <option value="Inżynieria odzysku surowców i energii">Inżynieria odzysku surowców i energii</option>
+        <option value="Inżynieria środowiska">Inżynieria środowiska</option>
+        <option value="Matematyka">Matematyka</option>
+        <option value="Mechanika i budowa maszyn">Mechanika i budowa maszyn</option>
+        <option value="Mechatronika">Mechatronika</option>
+        <option value="Nanotechnologia">Nanotechnologia</option>
+        <option value="Okręty i konstrukcje morskie">Okręty i konstrukcje morskie</option>
+        <option value="Projektowanie i budowa jachtów">Projektowanie i budowa jachtów</option>
+        <option value="Technologia chemiczna">Technologia chemiczna</option>
+        <option value="Technologie wodorowe i elektromobilność">Technologie wodorowe i elektromobilność</option>
+        <option value="Transport">Transport</option>
+        <option value="Transport i logistyka">Transport i logistyka</option>
+        <option value="Zarządzanie">Zarządzanie</option>
+        <option value="Zarządzanie i inżynieria produkcji">Zarządzanie i inżynieria produkcji</option>
+        <option value="Zarządzanie inżynierskie">Zarządzanie inżynierskie</option>
+        <option value="Zielone technologie">Zielone technologie</option>
+      </select><br><br>
+
+      <label for="wybor3">Kierunek - wybór 3:</label>
+      <select id="wybor3" name="wybor3">
+        
+        <option value="Wybierz">Wybierz</option>
+        <option value="Analityka gospodarcza">Analityka gospodarcza</option>
+        <option value="Architektura">Architektura</option>
+        <option value="Automatyka, robotyka i systemy sterowania">Automatyka, robotyka i systemy sterowania</option>
+        <option value="Automatyka, cybernetyka i robotyka">Automatyka, cybernetyka i robotyka</option>
+        <option value="Biotechnologia">Biotechnologia</option>
+        <option value="Budownictwo">Budownictwo</option>
+        <option value="Budowa maszyn i okrętów">Budowa maszyn i okrętów</option>
+        <option value="Chemia">Chemia</option>
+        <option value="Chemia budowlana">Chemia budowlana</option>
+        <option value="Ekonomia">Ekonomia</option>
+        <option value="Elektronika i telekomunikacja">Elektronika i telekomunikacja</option>
+        <option value="Elektrotechnika">Elektrotechnika</option>
+        <option value="Energetyka">Energetyka</option>
+        <option value="Fizyka techniczna">Fizyka techniczna</option>
+        <option value="Geodezja i kartografia">Geodezja i kartografia</option>
+        <option value="Gospodarka przestrzenna">Gospodarka przestrzenna</option>
+        <option value="Informatyka">Informatyka</option>
+        <option value="Inżynieria biomedyczna">Inżynieria biomedyczna</option>
+        <option value="Inżynieria danych">Inżynieria danych</option>
+        <option value="Inżynieria materiałowa">Inżynieria materiałowa</option>
+        <option value="Inżynieria mechaniczno-medyczna">Inżynieria mechaniczno-medyczna</option>
+        <option value="Inżynieria odzysku surowców i energii">Inżynieria odzysku surowców i energii</option>
+        <option value="Inżynieria środowiska">Inżynieria środowiska</option>
+        <option value="Matematyka">Matematyka</option>
+        <option value="Mechanika i budowa maszyn">Mechanika i budowa maszyn</option>
+        <option value="Mechatronika">Mechatronika</option>
+        <option value="Nanotechnologia">Nanotechnologia</option>
+        <option value="Okręty i konstrukcje morskie">Okręty i konstrukcje morskie</option>
+        <option value="Projektowanie i budowa jachtów">Projektowanie i budowa jachtów</option>
+        <option value="Technologia chemiczna">Technologia chemiczna</option>
+        <option value="Technologie wodorowe i elektromobilność">Technologie wodorowe i elektromobilność</option>
+        <option value="Transport">Transport</option>
+        <option value="Transport i logistyka">Transport i logistyka</option>
+        <option value="Zarządzanie">Zarządzanie</option>
+        <option value="Zarządzanie i inżynieria produkcji">Zarządzanie i inżynieria produkcji</option>
+        <option value="Zarządzanie inżynierskie">Zarządzanie inżynierskie</option>
+        <option value="Zielone technologie">Zielone technologie</option>
+      </select><br><br>
+
+      <label for="wybor4">Kierunek - wybór 4:</label>
+      <select id="wybor4" name="wybor4">
+        
+        <option value="Wybierz">Wybierz</option>
+        <option value="Analityka gospodarcza">Analityka gospodarcza</option>
+        <option value="Architektura">Architektura</option>
+        <option value="Automatyka, robotyka i systemy sterowania">Automatyka, robotyka i systemy sterowania</option>
+        <option value="Automatyka, cybernetyka i robotyka">Automatyka, cybernetyka i robotyka</option>
+        <option value="Biotechnologia">Biotechnologia</option>
+        <option value="Budownictwo">Budownictwo</option>
+        <option value="Budowa maszyn i okrętów">Budowa maszyn i okrętów</option>
+        <option value="Chemia">Chemia</option>
+        <option value="Chemia budowlana">Chemia budowlana</option>
+        <option value="Ekonomia">Ekonomia</option>
+        <option value="Elektronika i telekomunikacja">Elektronika i telekomunikacja</option>
+        <option value="Elektrotechnika">Elektrotechnika</option>
+        <option value="Energetyka">Energetyka</option>
+        <option value="Fizyka techniczna">Fizyka techniczna</option>
+        <option value="Geodezja i kartografia">Geodezja i kartografia</option>
+        <option value="Gospodarka przestrzenna">Gospodarka przestrzenna</option>
+        <option value="Informatyka">Informatyka</option>
+        <option value="Inżynieria biomedyczna">Inżynieria biomedyczna</option>
+        <option value="Inżynieria danych">Inżynieria danych</option>
+        <option value="Inżynieria materiałowa">Inżynieria materiałowa</option>
+        <option value="Inżynieria mechaniczno-medyczna">Inżynieria mechaniczno-medyczna</option>
+        <option value="Inżynieria odzysku surowców i energii">Inżynieria odzysku surowców i energii</option>
+        <option value="Inżynieria środowiska">Inżynieria środowiska</option>
+        <option value="Matematyka">Matematyka</option>
+        <option value="Mechanika i budowa maszyn">Mechanika i budowa maszyn</option>
+        <option value="Mechatronika">Mechatronika</option>
+        <option value="Nanotechnologia">Nanotechnologia</option>
+        <option value="Okręty i konstrukcje morskie">Okręty i konstrukcje morskie</option>
+        <option value="Projektowanie i budowa jachtów">Projektowanie i budowa jachtów</option>
+        <option value="Technologia chemiczna">Technologia chemiczna</option>
+        <option value="Technologie wodorowe i elektromobilność">Technologie wodorowe i elektromobilność</option>
+        <option value="Transport">Transport</option>
+        <option value="Transport i logistyka">Transport i logistyka</option>
+        <option value="Zarządzanie">Zarządzanie</option>
+        <option value="Zarządzanie i inżynieria produkcji">Zarządzanie i inżynieria produkcji</option>
+        <option value="Zarządzanie inżynierskie">Zarządzanie inżynierskie</option>
+        <option value="Zielone technologie">Zielone technologie</option>
+      </select><br><br>
+
+      <label for="wybor5">Kierunek - wybór 5:</label>
+      <select id="wybor5" name="wybor5">
+        
+        <option value="Wybierz">Wybierz</option>
+        <option value="Analityka gospodarcza">Analityka gospodarcza</option>
+        <option value="Architektura">Architektura</option>
+        <option value="Automatyka, robotyka i systemy sterowania">Automatyka, robotyka i systemy sterowania</option>
+        <option value="Automatyka, cybernetyka i robotyka">Automatyka, cybernetyka i robotyka</option>
+        <option value="Biotechnologia">Biotechnologia</option>
+        <option value="Budownictwo">Budownictwo</option>
+        <option value="Budowa maszyn i okrętów">Budowa maszyn i okrętów</option>
+        <option value="Chemia">Chemia</option>
+        <option value="Chemia budowlana">Chemia budowlana</option>
+        <option value="Ekonomia">Ekonomia</option>
+        <option value="Elektronika i telekomunikacja">Elektronika i telekomunikacja</option>
+        <option value="Elektrotechnika">Elektrotechnika</option>
+        <option value="Energetyka">Energetyka</option>
+        <option value="Fizyka techniczna">Fizyka techniczna</option>
+        <option value="Geodezja i kartografia">Geodezja i kartografia</option>
+        <option value="Gospodarka przestrzenna">Gospodarka przestrzenna</option>
+        <option value="Informatyka">Informatyka</option>
+        <option value="Inżynieria biomedyczna">Inżynieria biomedyczna</option>
+        <option value="Inżynieria danych">Inżynieria danych</option>
+        <option value="Inżynieria materiałowa">Inżynieria materiałowa</option>
+        <option value="Inżynieria mechaniczno-medyczna">Inżynieria mechaniczno-medyczna</option>
+        <option value="Inżynieria odzysku surowców i energii">Inżynieria odzysku surowców i energii</option>
+        <option value="Inżynieria środowiska">Inżynieria środowiska</option>
+        <option value="Matematyka">Matematyka</option>
+        <option value="Mechanika i budowa maszyn">Mechanika i budowa maszyn</option>
+        <option value="Mechatronika">Mechatronika</option>
+        <option value="Nanotechnologia">Nanotechnologia</option>
+        <option value="Okręty i konstrukcje morskie">Okręty i konstrukcje morskie</option>
+        <option value="Projektowanie i budowa jachtów">Projektowanie i budowa jachtów</option>
+        <option value="Technologia chemiczna">Technologia chemiczna</option>
+        <option value="Technologie wodorowe i elektromobilność">Technologie wodorowe i elektromobilność</option>
+        <option value="Transport">Transport</option>
+        <option value="Transport i logistyka">Transport i logistyka</option>
+        <option value="Zarządzanie">Zarządzanie</option>
+        <option value="Zarządzanie i inżynieria produkcji">Zarządzanie i inżynieria produkcji</option>
+        <option value="Zarządzanie inżynierskie">Zarządzanie inżynierskie</option>
+        <option value="Zielone technologie">Zielone technologie</option>
+      </select><br><br>
+
+      <label for="punkty">Punkty rekrutacyjne:</label>
+      <input type="text" id="punkty" name="punkty" required><br><br>
+      <span class="error">{{ error_messages }}</span><br><br>
+
+      <input type="submit" value="Wyślij">
+    </form>
+</section>
+<footer>
+  <p>&copy; {{ current_year }} System Rekomendacyjny Politechniki Gdańskiej</p>
+  <p>Autor: Paulina Borys</p>
+</footer>
+</body>
+</html>
